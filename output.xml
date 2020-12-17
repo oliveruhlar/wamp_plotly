@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.2.2 (Python 3.9.0 on win32)" generated="20201216 14:52:01.849" rpa="false">
+<robot generator="Robot 3.2.2 (Python 3.9.0 on win32)" generated="20201217 13:24:53.853" rpa="false">
 <suite id="s1" name="Test Wp" source="C:\Users\oliver.uhlar\Desktop\Projects\wamp_plotly\test_wp.robot">
 <kw name="Start wamp" type="setup">
 <kw name="Start Process" library="Process">
@@ -7,13 +7,88 @@
 <arguments>
 <arg>wamp.bat</arg>
 </arguments>
-<msg timestamp="20201216 14:52:01.875" level="INFO">Starting process:
+<msg timestamp="20201217 13:24:53.886" level="INFO">Starting process:
 wamp.bat</msg>
-<status status="PASS" starttime="20201216 14:52:01.875" endtime="20201216 14:52:01.882"></status>
+<status status="PASS" starttime="20201217 13:24:53.886" endtime="20201217 13:24:53.888"></status>
 </kw>
-<status status="PASS" starttime="20201216 14:52:01.875" endtime="20201216 14:52:01.882"></status>
+<status status="PASS" starttime="20201217 13:24:53.886" endtime="20201217 13:24:53.888"></status>
 </kw>
-<test id="s1-t1" name="Graph temperature BB">
+<test id="s1-t1" name="Test wamp is booted">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>40s</arg>
+<arg>5s</arg>
+<arg>Is wamp booted</arg>
+</arguments>
+<kw name="Is wamp booted">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
+connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
+<arguments>
+<arg>dbConfigFile=db.cfg</arg>
+</arguments>
+<msg timestamp="20201217 13:24:53.910" level="INFO">Connecting using : pymysql.connect(db=myfirstdb, user=oliveruhlar, passwd=2BisxP1k3NdBDZ1E, host=localhost, port=3308, charset=None) </msg>
+<msg timestamp="20201217 13:24:57.936" level="FAIL">OperationalError: (2003, "Can't connect to MySQL server on 'localhost' ([WinError 10061] No connection could be made because the target machine actively refused it)")</msg>
+<status status="FAIL" starttime="20201217 13:24:53.890" endtime="20201217 13:24:57.936"></status>
+</kw>
+<status status="FAIL" starttime="20201217 13:24:53.889" endtime="20201217 13:24:57.936"></status>
+</kw>
+<kw name="Is wamp booted">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
+connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
+<arguments>
+<arg>dbConfigFile=db.cfg</arg>
+</arguments>
+<msg timestamp="20201217 13:25:02.939" level="INFO">Connecting using : pymysql.connect(db=myfirstdb, user=oliveruhlar, passwd=2BisxP1k3NdBDZ1E, host=localhost, port=3308, charset=None) </msg>
+<status status="PASS" starttime="20201217 13:25:02.937" endtime="20201217 13:25:02.951"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional
+input `sansTran` to True to run command without an explicit transaction commit or rollback.
+Set optional input `returnAsDict` to True to return values as a list of dictionaries.</doc>
+<arguments>
+<arg>select * from bb_2019_temperature</arg>
+</arguments>
+<assign>
+<var>@{queryResults}</var>
+</assign>
+<msg timestamp="20201217 13:25:02.951" level="INFO">Executing : Query  |  select * from bb_2019_temperature </msg>
+<msg timestamp="20201217 13:25:02.956" level="INFO">@{queryResults} = [ ('January', 1.0, -2.9, -6.7) | ('February', 4.4, -0.8, -5.2) | ('March', 9.5, 3.5, -1.5) | ('April', 15.2, 8.7, 2.4) | ('May', 20.9, 14.0, 7.2) | ('Jun', 23.6, 16.9, 10.1) | ('July', 25.5, 18.5, 11....</msg>
+<status status="PASS" starttime="20201217 13:25:02.951" endtime="20201217 13:25:02.956"></status>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<arguments>
+<arg>@{queryResults}</arg>
+</arguments>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('January', 1.0, -2.9, -6.7)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('February', 4.4, -0.8, -5.2)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('March', 9.5, 3.5, -1.5)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('April', 15.2, 8.7, 2.4)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('May', 20.9, 14.0, 7.2)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('Jun', 23.6, 16.9, 10.1)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('July', 25.5, 18.5, 11.5)</msg>
+<msg timestamp="20201217 13:25:02.958" level="INFO">('August', 25.8, 18.0, 11.1)</msg>
+<msg timestamp="20201217 13:25:02.959" level="INFO">('September', 20.6, 13.5, None)</msg>
+<msg timestamp="20201217 13:25:02.959" level="INFO">('October', 14.6, 8.2, 3.4)</msg>
+<msg timestamp="20201217 13:25:02.959" level="INFO">('November', 6.5, 2.7, -0.8)</msg>
+<msg timestamp="20201217 13:25:02.959" level="INFO">('December', 1.9, -1.4, -4.6)</msg>
+<status status="PASS" starttime="20201217 13:25:02.958" endtime="20201217 13:25:02.959"></status>
+</kw>
+<status status="PASS" starttime="20201217 13:25:02.936" endtime="20201217 13:25:02.959"></status>
+</kw>
+<status status="PASS" starttime="20201217 13:24:53.889" endtime="20201217 13:25:02.959"></status>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20201217 13:25:02.959" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20201217 13:25:02.959" endtime="20201217 13:25:02.959"></status>
+</kw>
+<status status="PASS" starttime="20201217 13:24:53.888" endtime="20201217 13:25:02.960" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Graph temperature BB">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -24,12 +99,12 @@ wamp.bat</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20201216 14:52:01.883" level="INFO">Starting process:
+<msg timestamp="20201217 13:25:02.968" level="INFO">Starting process:
 C:\Users\oliver.uhlar\Desktop\Projects\wamp_plotly\venv\Scripts\python.exe wamp_plotly.py runserver</msg>
-<msg timestamp="20201216 14:52:01.885" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20201216 14:52:02.692" level="INFO">Process completed.</msg>
-<msg timestamp="20201216 14:52:02.692" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20201216 14:52:01.883" endtime="20201216 14:52:02.692"></status>
+<msg timestamp="20201217 13:25:02.972" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20201217 13:25:03.571" level="INFO">Process completed.</msg>
+<msg timestamp="20201217 13:25:03.572" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20201217 13:25:02.968" endtime="20201217 13:25:03.572"></status>
 </kw>
 <kw name="Should Be Empty" library="BuiltIn">
 <doc>Verifies that the given item is empty.</doc>
@@ -37,15 +112,15 @@ C:\Users\oliver.uhlar\Desktop\Projects\wamp_plotly\venv\Scripts\python.exe wamp_
 <arg>${result.stderr}</arg>
 <arg>msg=${result.stderr}</arg>
 </arguments>
-<msg timestamp="20201216 14:52:02.694" level="INFO">Length is 0</msg>
-<status status="PASS" starttime="20201216 14:52:02.693" endtime="20201216 14:52:02.694"></status>
+<msg timestamp="20201217 13:25:03.578" level="INFO">Length is 0</msg>
+<status status="PASS" starttime="20201217 13:25:03.573" endtime="20201217 13:25:03.578"></status>
 </kw>
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
 <arg>${result.stdout}</arg>
 </arguments>
-<msg timestamp="20201216 14:52:02.707" level="INFO">+-----------+--------+--------+--------+
+<msg timestamp="20201217 13:25:03.578" level="INFO">+-----------+--------+--------+--------+
 |   Month   | Max C░ | Min C░ | Avg C░ |
 +-----------+--------+--------+--------+
 |  January  |  1.0   |  -2.9  |  -6.7  |
@@ -61,21 +136,21 @@ C:\Users\oliver.uhlar\Desktop\Projects\wamp_plotly\venv\Scripts\python.exe wamp_
 |  November |  6.5   |  2.7   |  -0.8  |
 |  December |  1.9   |  -1.4  |  -4.6  |
 +-----------+--------+--------+--------+</msg>
-<status status="PASS" starttime="20201216 14:52:02.696" endtime="20201216 14:52:02.707"></status>
+<status status="PASS" starttime="20201217 13:25:03.578" endtime="20201217 13:25:03.579"></status>
 </kw>
-<status status="PASS" starttime="20201216 14:52:01.882" endtime="20201216 14:52:02.707" critical="yes"></status>
+<status status="PASS" starttime="20201217 13:25:02.967" endtime="20201217 13:25:03.579" critical="yes"></status>
 </test>
-<status status="PASS" starttime="20201216 14:52:01.850" endtime="20201216 14:52:02.709"></status>
+<status status="PASS" starttime="20201217 13:24:53.854" endtime="20201217 13:25:03.581"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0">Critical Tests</stat>
-<stat pass="1" fail="0">All Tests</stat>
+<stat pass="2" fail="0">Critical Tests</stat>
+<stat pass="2" fail="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" id="s1" name="Test Wp">Test Wp</stat>
+<stat pass="2" fail="0" id="s1" name="Test Wp">Test Wp</stat>
 </suite>
 </statistics>
 <errors>
