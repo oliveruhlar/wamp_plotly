@@ -20,7 +20,7 @@ Create table
 Insert data from yaml
     ${result} =  Run Process  C:\\Users\\oliver.uhlar\\Desktop\\Projects\\wamp_plotly\\venv\\Scripts\\python.exe  load_data.py  runserver
     Should Be Empty  ${result.stderr}  msg=${result.stderr}
-    Log  ${result}
+    Log  ${result.stdout}
     Query  ${result.stdout}
     ${rowCount}	Row Count	SELECT * FROM temp_bb
     Should Be Equal As Integers  ${rowCount}  12
